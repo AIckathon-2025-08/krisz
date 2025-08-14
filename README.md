@@ -28,5 +28,5 @@
 
 Here are the links to interact with the app after starting it:
 
-- <a href="http://localhost:5000" target="_blank">Voting Panel</a>
-- <a href="http://localhost:5000/admin" target="_blank">Admin Panel</a>
+- [Voting Panel](http://localhost:5000)
+- [Admin Panel](http://localhost:5000/admin)
