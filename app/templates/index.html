@@ -8,16 +8,15 @@
 <body>
     <div class="container">
         <h1 class="page-title">Two Truths and a Lie</h1>
-        <div id="login-container">
-            <input type="text" id="username-input" placeholder="Enter your name">
-            <button id="login-btn" class="button">Start voting</button>
+        <div id="waiting-container">
+            <strong><p>Waiting for the player to start the game...</p></strong>
         </div>
         <div id="vote-container" style="display: none;">
             <div class="profile-card">
-                <img id="candidate-image" src="" alt="Candidate image" class="profile-image">
-                <h2 id="candidate-name"></h2>
+                <h2>Player: <span id="player-name"></span></h2>
+                <img id="player-image" src="" alt="Player's picture" class="profile-image">
             </div>
-            <p>Choose which one is the lie.</p>
+            <strong><p id="vote-status-message">Choose which one is the lie.</p></strong>
             <form id="vote-form">
                 <div>
                     <input type="radio" id="statement1" name="lie_choice" value="1">
@@ -37,10 +36,6 @@
         <div id="result-container" style="display: none;">
             <h2>Results:</h2>
             <ul id="results-list"></ul>
-            <div id="correct-answer" style="display:none;">
-                <p>The correct answer was: <span id="lie-text"></span></p>
-                <p id="your-result"></p>
-            </div>
         </div>
     </div>
     <script src="{{ url_for('static', filename='app.js') }}"></script>

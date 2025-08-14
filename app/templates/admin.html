@@ -8,13 +8,19 @@
 <body>
     <div class="container">
         <h1 class="page-title">Admin Panel</h1>
-        <form id="setup-form">
+        <form id="setup-form" enctype="multipart/form-data">
             <h2>Set up the game</h2>
-            <input type="text" id="admin-name" placeholder="Candidate's Name" required>
-            <input type="text" id="admin-image-url" placeholder="Candidate's Image URL" required>
-            <input type="text" id="statement-1" placeholder="Statement 1" required>
-            <input type="text" id="statement-2" placeholder="Statement 2" required>
-            <input type="text" id="statement-3" placeholder="Statement 3" required>
+            <input type="text" id="admin-name" name="name" placeholder="Player's Name" required>
+            <div class="custom-file-input">
+                <input type="file" id="admin-image" name="image" accept="image/*">
+                <div class="file-info">
+                    <span id="file-name" class="placeholder-text">Player's picture</span>
+                    <label for="admin-image" class="file-label">Browse...</label>
+                </div>
+            </div>
+            <input type="text" id="statement-1" name="statement-1" placeholder="Statement 1" required>
+            <input type="text" id="statement-2" name="statement-2" placeholder="Statement 2" required>
+            <input type="text" id="statement-3" name="statement-3" placeholder="Statement 3" required>
             <button type="submit" class="button">Start New Game</button>
         </form>
         <hr>

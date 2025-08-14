@@ -1,114 +1,98 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginContainer = document.getElementById('login-container');
+    const waitingContainer = document.getElementById('waiting-container');
     const voteContainer = document.getElementById('vote-container');
     const resultContainer = document.getElementById('result-container');
-    const usernameInput = document.getElementById('username-input');
-    const loginBtn = document.getElementById('login-btn');
-    const candidateName = document.getElementById('candidate-name');
-    const candidateImage = document.getElementById('candidate-image');
+    const playerName = document.getElementById('player-name');
+    const playerImage = document.getElementById('player-image');
     const voteForm = document.getElementById('vote-form');
     const resultsList = document.getElementById('results-list');
-    const correctAnswerSection = document.getElementById('correct-answer');
-    const lieTextSpan = document.getElementById('lie-text');
-    const yourResultSpan = document.getElementById('your-result');
-
-    let username = null;
+    const voteStatusMessage = document.getElementById('vote-status-message'); // New element for status message
     let userVote = null;
     let lieId = null;
 
-    // Bejelentkezés eseménykezelő
-    loginBtn.addEventListener('click', () => {
-        username = usernameInput.value.trim();
-        if (username) {
-            loginContainer.style.display = 'none';
-            voteContainer.style.display = 'block';
-            fetchGameData();
-        } else {
-            alert('Please enter a username.');
-        }
-    });
+    fetchGameData();
 
-    // Játék adatainak lekérése
     async function fetchGameData() {
         const response = await fetch('/api/game');
         const data = await response.json();
 
-        candidateName.textContent = data.candidate_name;
-        candidateImage.src = data.candidate_image_url;
-
-        data.statements.forEach((statement, index) => {
-            const label = document.getElementById(`label${index + 1}`);
-            label.textContent = statement;
-        });
-
-        if (data.lie_revealed) {
-            // Ha már felfedték a hazugságot, ne lehessen szavazni, és mutassuk az eredményt
+        if (data.player_name) {
+            waitingContainer.style.display = 'none';
+            voteContainer.style.display = 'block';
+            playerName.textContent = data.player_name;
+            if (data.player_image_url && data.player_image_url !== 'None') {
+                playerImage.src = data.player_image_url;
+                playerImage.classList.remove('profile-image-placeholder');
+                playerImage.alt = "Player's picture";
+            } else {
+                playerImage.src = '';
+                playerImage.classList.add('profile-image-placeholder');
+                playerImage.alt = "Player's picture";
+            }
+            data.statements.forEach((statement, index) => {
+                const label = document.getElementById(`label${index + 1}`);
+                label.textContent = statement;
+            });
+            if (data.lie_revealed) {
+                voteContainer.style.display = 'none';
+                resultContainer.style.display = 'block';
+                fetchResults();
+            }
+        } else {
+            waitingContainer.style.display = 'block';
             voteContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            fetchResults();
         }
     }
 
-    // Szavazat leadása
     voteForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const selectedLie = document.querySelector('input[name="lie_choice"]:checked');
         if (!selectedLie) {
-            alert('Please select a statement.');
+            // No pop-up, just a simple message on the page.
+            if (voteStatusMessage) {
+                voteStatusMessage.textContent = 'Please select a statement.';
+            }
             return;
         }
 
         userVote = selectedLie.value;
-
         const response = await fetch('/api/vote', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: username, vote_id: parseInt(userVote) })
+            body: JSON.stringify({ username: 'guest', vote_id: parseInt(userVote) })
         });
         const data = await response.json();
 
         if (data.success) {
-            alert('Your vote has been submitted!');
-            voteForm.style.display = 'none'; // Rejtsd el a szavazás űrlapot a szavazás után
+            // Display success message and hide the form
+            voteStatusMessage.textContent = 'Your vote has been submitted';
+            voteStatusMessage.style.color = '#2ecc71'; // Green color for success
+            voteForm.style.display = 'none';
         } else {
-            alert('Failed to submit vote.');
+            // Display error message
+            voteStatusMessage.textContent = 'Failed to submit vote.';
+            voteStatusMessage.style.color = '#e74c3c'; // Red color for error
         }
     });
 
-    // Eredmények frissítése
     async function fetchResults() {
         const response = await fetch('/api/results');
         const data = await response.json();
 
-        resultsList.innerHTML = ''; // Töröljük a korábbi eredményeket
-
-        // Szavazatok száma
+        resultsList.innerHTML = '';
         for (const [voteId, count] of Object.entries(data.results)) {
             const statementText = document.getElementById(`label${voteId}`).textContent;
             const li = document.createElement('li');
-            li.textContent = `Statement ${voteId} ("${statementText}"): ${count} votes`;
-            resultsList.appendChild(li);
-        }
-
-        // A helyes válasz és a felhasználó eredményének megjelenítése
-        if (data.lie_id) {
-            correctAnswerSection.style.display = 'block';
-            lieTextSpan.textContent = document.getElementById(`label${data.lie_id}`).textContent;
-
-            if (userVote) {
-                if (parseInt(userVote) === data.lie_id) {
-                    yourResultSpan.textContent = 'You chose the correct answer! 🎉';
-                    yourResultSpan.classList.add('correct');
-                    yourResultSpan.classList.remove('incorrect');
-                } else {
-                    yourResultSpan.textContent = 'You chose the wrong answer. 😞';
-                    yourResultSpan.classList.add('incorrect');
-                    yourResultSpan.classList.remove('correct');
-                }
+            li.textContent = `Statement ${voteId}: "${statementText}"`;
+            if (data.lie_id && parseInt(voteId) === data.lie_id) {
+                li.classList.add('correct-statement');
             }
+            const voteCountSpan = document.createElement('span');
+            voteCountSpan.textContent = `${count} votes`;
+            li.appendChild(voteCountSpan);
+            resultsList.appendChild(li);
         }
     }
 
-    // Eredmények frissítése 5 másodpercenként
-    setInterval(fetchResults, 5000);
+    setInterval(fetchGameData, 5000);
 });
