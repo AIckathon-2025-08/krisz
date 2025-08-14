@@ -2,19 +2,23 @@
 
 ## Preview
 
+Here you can see pics and videos about the game.
+
 ### Voting
 
-![vote](images/image-3.png)
+![waiting](images/waiting.png)
+
+![voting](images/voting.png)
+
+![results](images/results.png)
 
 ### Candidate (player)
 
-![admin](images/image-2.png)
+![admin](images/admin.png)
 
----
+![revealing](images/revealing.png)
 
-![reveal](images/image-4.png)
-
-### Video of the site
+### Video of the game
 
 <https://drive.google.com/file/d/1yrIRuQtKPtsuRPNKw6LeZpBmujF_EMqb/view?usp=sharing>
 
