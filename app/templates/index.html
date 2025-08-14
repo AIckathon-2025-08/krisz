@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Two Truths and a Lie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Two Truths and a Lie</h1>
+        <div id="login-container">
+            <input type="text" id="username-input" placeholder="Enter your name">
+            <button id="login-btn" class="button">Start voting</button>
+        </div>
+        <div id="vote-container" style="display: none;">
+            <div class="profile-card">
+                <img id="candidate-image" src="" alt="Candidate image" class="profile-image">
+                <h2 id="candidate-name"></h2>
+            </div>
+            <p>Choose which one is the lie.</p>
+            <form id="vote-form">
+                <div>
+                    <input type="radio" id="statement1" name="lie_choice" value="1">
+                    <label for="statement1" id="label1"></label>
+                </div>
+                <div>
+                    <input type="radio" id="statement2" name="lie_choice" value="2">
+                    <label for="statement2" id="label2"></label>
+                </div>
+                <div>
+                    <input type="radio" id="statement3" name="lie_choice" value="3">
+                    <label for="statement3" id="label3"></label>
+                </div>
+                <button type="submit" class="button">Submit vote</button>
+            </form>
+        </div>
+        <div id="result-container" style="display: none;">
+            <h2>Results:</h2>
+            <ul id="results-list"></ul>
+            <div id="correct-answer" style="display:none;">
+                <p>The correct answer was: <span id="lie-text"></span></p>
+                <p id="your-result"></p>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

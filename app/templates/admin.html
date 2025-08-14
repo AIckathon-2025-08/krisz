@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Two Truths and a Lie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Admin Panel</h1>
+        <form id="setup-form">
+            <h2>Set up the game</h2>
+            <input type="text" id="admin-name" placeholder="Candidate's Name" required>
+            <input type="text" id="admin-image-url" placeholder="Candidate's Image URL" required>
+            <input type="text" id="statement-1" placeholder="Statement 1" required>
+            <input type="text" id="statement-2" placeholder="Statement 2" required>
+            <input type="text" id="statement-3" placeholder="Statement 3" required>
+            <button type="submit" class="button">Start New Game</button>
+        </form>
+        <hr>
+        <form id="reveal-form">
+            <h2>Reveal the lie</h2>
+            <p>Select the lie to reveal the results to all players.</p>
+            <select id="lie-select" required>
+                <option value="">-- Choose the lie --</option>
+                <option value="1">Statement 1</option>
+                <option value="2">Statement 2</option>
+                <option value="3">Statement 3</option>
+            </select>
+            <button type="submit" class="button">Reveal Lie</button>
+        </form>
+        <div id="status-message"></div>
+    </div>
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>
