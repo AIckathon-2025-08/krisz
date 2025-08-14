@@ -2,17 +2,13 @@
 
 ## Preview
 
-**Login page:**
-![login](images/image.png)
+### Voting
 
-**Voting page:**
 ![vote](images/image-3.png)
 
-**Candidate page:**
-![admin](images/image-2.png)
+### Candidate (player)
 
-**Revealing part:**
-![reveal](images/image-4.png)
+![admin](images/image-2.png)
 
 ### Video of the site
 
