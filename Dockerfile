@@ -1,15 +1,14 @@
-# Használj egy hivatalos Python image-et
 FROM python:3.9-slim
 
-# Állítsd be a munkakönyvtárat
+# Set the working dir
 WORKDIR /app
 
-# Másold be a függőségeket és telepítsd őket
+# Copy requirements and install
 COPY app/requirements.txt .
 RUN pip install -r requirements.txt
 
-# Másold be a teljes alkalmazást
+# Copy the whole
 COPY app/ .
 
-# Indítsd el az alkalmazást
+# Start the app
 CMD ["python", "app.py"]
