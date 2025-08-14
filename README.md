@@ -12,9 +12,7 @@
 
 ### Video of the site
 
-<video src="videos/2truth1lie.mp4" controls title="Gameplay Video" style="max-width: 100%;">
-  Your browser does not support the video tag.
-</video>
+<https://drive.google.com/file/d/1yrIRuQtKPtsuRPNKw6LeZpBmujF_EMqb/view?usp=sharing>
 
 ## Available commands
 
