@@ -23,6 +23,7 @@
             <input type="text" id="statement-3" name="statement-3" placeholder="Statement 3" required>
             <button type="submit" class="button">Start New Game</button>
         </form>
+        <div id="status-message"></div>
         <hr>
         <form id="reveal-form">
             <h2>Reveal the lie</h2>
@@ -35,7 +36,6 @@
             </select>
             <button type="submit" class="button">Reveal Lie</button>
         </form>
-        <div id="status-message"></div>
     </div>
     <script src="{{ url_for('static', filename='admin.js') }}"></script>
 </body>
