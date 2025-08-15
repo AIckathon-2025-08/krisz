@@ -115,36 +115,17 @@ hr {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     z-index: 1;
 }
-#results-list {
-    list-style-type: none; /* Removes the bullet points */
+#results-list, #final-results-list {
+    list-style-type: none;
     padding: 0;
 }
-
-/* Updated styling for vote list items */
 #results-list li, #final-results-list li {
     margin-bottom: 20px;
 }
-
-.statement-and-votes {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 5px;
-}
-
 .lie-statement {
-    border: 2px solid #e74c3c;
-    padding: 5px;
-    border-radius: 5px;
+    color: #e74c3c;
     font-weight: bold;
 }
-
-/* Admin panel styles */
-#status-message {
-    margin-top: 20px;
-    font-weight: bold;
-}
-
 .custom-file-input {
     display: flex;
     align-items: center;
@@ -211,4 +192,17 @@ hr {
 }
 .placeholder-text {
     color: #7f8c8d !important;
+}
+
+.statement-and-votes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.status-message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #2ecc71;
 }

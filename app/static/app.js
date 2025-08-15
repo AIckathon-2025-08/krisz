@@ -9,12 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsList = document.getElementById('results-list');
     const finalResultsList = document.getElementById('final-results-list');
     const voteStatusMessage = document.getElementById('vote-status-message');
-    
+
     // Check local storage for a submitted vote
     let hasVoted = localStorage.getItem('hasVoted') === 'true';
 
     fetchGameData();
-    
+
     // Check game state every 2 seconds
     setInterval(() => {
         fetchGameData();
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const voteId = Date.now().toString(36) + Math.random().toString(36).substr(2);
-        
+
         const response = await fetch('/api/vote', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.success) {
             voteStatusMessage.textContent = 'Your vote has been saved.';
             voteStatusMessage.style.color = '#2ecc71';
-            
+
             // Set vote status to true in local storage
             localStorage.setItem('hasVoted', 'true');
             hasVoted = true;
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const targetList = lieId ? finalResultsList : resultsList;
         targetList.innerHTML = '';
-        
+
         for (const [voteId, count] of Object.entries(data.results)) {
             const statementText = document.getElementById(`label${voteId}`).textContent;
             const percentage = totalVotes > 0 ? ((count / totalVotes) * 100).toFixed(0) : 0;
@@ -122,14 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const statementDiv = document.createElement('div');
             statementDiv.textContent = `${statementText}`;
-            
+
             const voteBarContainer = document.createElement('div');
             voteBarContainer.classList.add('vote-bar-container');
 
             const voteBar = document.createElement('div');
             voteBar.classList.add('vote-bar');
             voteBar.style.width = `${percentage}%`;
-            
+
             const barText = document.createElement('div');
             barText.classList.add('vote-bar-text');
             barText.textContent = `${percentage}% (${count} votes)`;
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.appendChild(statementDiv);
             li.appendChild(voteBarContainer);
-            
+
             if (lieId && parseInt(voteId) === lieId) {
                 li.classList.add('lie-statement');
             }
